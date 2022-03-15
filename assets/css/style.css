@@ -1,0 +1,50 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background-color: midnightblue;
+  background-image: linear-gradient(.25turn, cornflowerblue 0%, royalblue 20%, midnightblue 90%);
+  color: white;
+  text-align: center;
+  padding: 10px 30px;
+}
+
+h1 {
+  font-weight: 700;
+}
+
+.card-header {
+  font-weight: 600;
+  font-size: 28px;
+  background-color: white;
+  border: none;
+  padding: 5px 5px 0 5px;
+}
+
+.card {
+  border: none;
+}
+
+.card-body {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.form-input {
+  font-size: 20px;
+}
+
+.search-btn {
+  color: white;
+  background-color: cornflowerblue;
+  border-radius: 5px;
+  margin: 15px 0;
+  padding: 3px;
+}
+
+.search-history {
+  border-top: solid 2px black;
+}
