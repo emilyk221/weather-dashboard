@@ -43,7 +43,30 @@ let getCoordinates = function(city) {
 }
 
 let getWeather = function(lat, long, city) {
-  console.log(lat, long, city);
+  // format the open weather api url
+  let apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&units=imperial&exclude=minutely,hourly&appid=${weatherApiKey}";
+  
+  // make a request to the url
+  fetch(apiUrl)
+    .then(function(response) {
+      // request was successful
+      if (response.ok) {
+        response.json().then(function(data) {
+          console.log(data);
+          displayWeather(data, city);
+        });
+      }
+      else {
+        alert("Error: City Weather Not Found");
+      }
+    })
+    .catch(function(error) {
+      alert("Unable to connect to Open Weather");
+    });
+}
+
+let displayWeather = function(data, city) {
+  console.log(city);
 }
 
 //searchFormEl = addEventListener("submit", formSubmitHandler);
