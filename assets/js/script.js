@@ -1,6 +1,7 @@
 let searchFormEl = document.querySelector("#search-form");
 let searchHistoryEl = document.querySelector(".search-history");
 let cityInputEl = document.querySelector("#city");
+let currWeatherListEl = document.querySelector("#current-weather-list");
 
 // let formSubmitHandler = function(event) {
 //   event.preventDefault();
@@ -76,10 +77,36 @@ let displayWeather = function(data, city) {
   iconEl.classList = "weather-icon";
   iconEl.setAttribute("src", iconUrl);
 
-  // populate current weather container with city, current date, and weather icon
+  // populate current weather container with city, current date, and current weather icon
   let cityTitleEl = document.querySelector(".city-title");
   cityTitleEl.textContent = city + " (" + dt + ") ";
   cityTitleEl.appendChild(iconEl);
+
+  // create list for current weather conditions
+  for (let i = 0; i < 4; i++) {
+    let conditions = ["Temp", "Wind", "Humidity", "UV Index"];
+    let condEl = document.createElement("li");
+    condEl.id = conditions[i];
+    condEl.textContent = conditions[i] + ": ";
+
+    currWeatherListEl.appendChild(condEl);
+  }
+
+  // add current temp to current conditions
+  let temp = document.getElementById("Temp");
+  temp.textContent += data.current.temp + "°F";
+
+  // add current wind speed to current conditions
+  let wind = document.getElementById("Wind");
+  wind.textContent += data.current.wind_speed + " MPH";
+
+  // add current humidity to current conditions
+  let humid = document.getElementById("Humidity");
+  humid.textContent += data.current.humidity + " %";
+
+  // add current uv index to current conditions
+  let uvi = document.getElementById("UV Index");
+  uvi.textContent += data.current.uvi;
   
 }
 
