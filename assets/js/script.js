@@ -79,7 +79,7 @@ let displayWeather = function(data, city) {
 
   // populate current weather container with city, current date, and current weather icon
   let cityTitleEl = document.querySelector(".city-title");
-  cityTitleEl.textContent = city + " (" + dt + ") ";
+  cityTitleEl.textContent = city + " (" + dt + ")";
   cityTitleEl.appendChild(iconEl);
 
   // create list for current weather conditions
@@ -108,6 +108,55 @@ let displayWeather = function(data, city) {
   let uvi = document.getElementById("UV Index");
   uvi.textContent += data.current.uvi;
   
+  // create a title for forecast container
+  let forecastTitleContEl = document.querySelector(".forecast-title-container")
+  let forecastTitleEl = document.createElement("h3");
+  forecastTitleEl.classList = "forecast-title";
+  forecastTitleEl.textContent = "5-day forecast:";
+  forecastTitleContEl.appendChild(forecastTitleEl);
+
+  // add date and weather icon and data to each of the forecast cards
+  for (let i = 0; i < 5; i++) {
+    let forecastCardEl = document.querySelector("#day" + (i+1));
+    let forecastDate = luxon.DateTime.now().plus({ days: (i+1) }).toLocaleString();
+    forecastCardEl.textContent = forecastDate;
+
+    let forecastIcon = data.daily[i].weather[0].icon;
+    let fIconUrl = "https://openweathermap.org/img/w/" + forecastIcon + ".png";
+    let fIconEl = document.createElement("img");
+    fIconEl.classList = "weather-icon";
+    fIconEl.setAttribute("src", fIconUrl);
+
+    forecastCardEl.appendChild(fIconEl);
+
+    // create a list element in each forecast card to hold forecasted weather conditions
+    let forecastCondListEl = document.createElement("ul");
+    forecastCondListEl.classList = "forecast-conditions-list";
+
+    forecastCardEl.appendChild(forecastCondListEl);
+
+    // create list of conditions in each forecast card to store forecasted values
+    for (let j = 0; j < 3; j++) {
+      let fConditions = ["Temp", "Wind", "Humidity"];
+      let fCondEl = document.createElement("li");
+      fCondEl.id = fConditions[j] + i;
+      fCondEl.textContent = fConditions[j] + ": ";
+
+      forecastCondListEl.appendChild(fCondEl);
+    }
+
+    // add forecasted temp to forecast cards
+  let fTemp = document.getElementById("Temp" + i);
+  fTemp.textContent += data.daily[i].temp.day + "°F";
+
+  // add forecasted wind speed to forecast cards
+  let fWind = document.getElementById("Wind" + i);
+  fWind.textContent += data.daily[i].wind_speed + " MPH";
+
+  // add forecasted humidity to forecast cards
+  let fHumid = document.getElementById("Humidity" + i);
+  fHumid.textContent += data.daily[i].humidity + " %";
+  }
 }
 
 //searchFormEl = addEventListener("submit", formSubmitHandler);
