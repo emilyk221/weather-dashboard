@@ -66,7 +66,13 @@ let getWeather = function(lat, long, city) {
 }
 
 let displayWeather = function(data, city) {
-  console.log(city);
+  // get the current date in human readable format
+  let dt = luxon.DateTime.now().toLocaleString();
+
+  // populate current weather container with city, current date
+  let cityTitleEl = document.querySelector(".city-title");
+  cityTitleEl.textContent = city + " (" + dt + ") ";
+  
 }
 
 //searchFormEl = addEventListener("submit", formSubmitHandler);

@@ -48,3 +48,19 @@ h1 {
 .search-history {
   border-top: solid 2px black;
 }
+
+.weather-container {
+  padding: 10px 25px 10px 5px;
+}
+
+.current-weather {
+  border: 1px solid black;
+}
+
+.city-title {
+  font-weight: 600;
+  font-size: 28px;
+  background-color: white;
+  padding: 10px 5px;
+  margin: 0;
+}

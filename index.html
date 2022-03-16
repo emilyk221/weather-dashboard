@@ -29,9 +29,21 @@
         </div>
       </div>
       <div class="col-12 col-md-9 weather-container">
-        
+        <div class="current-weather">
+          <h2 class="city-title"></h2>
+          <ul id="current-weather-list"></ul>
+        </div>
+        <div class="forecast-title-container"></div>
+        <div class="row forecast-weather">
+          <div id="day1" class="col-12 col-sm-6 col-md-2 forecast-card"></div>
+          <div id="day2" class="col-12 col-sm-6 col-md-2 forecast-card"></div>
+          <div id="day3" class="col-12 col-sm-6 col-md-2 forecast-card"></div>
+          <div id="day4" class="col-12 col-sm-6 col-md-2 forecast-card"></div>
+          <div id="day5" class="col-12 col-sm-6 col-md-2 forecast-card"></div>
+        </div>
       </div>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.1/build/global/luxon.min.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>
