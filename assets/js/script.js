@@ -69,9 +69,17 @@ let displayWeather = function(data, city) {
   // get the current date in human readable format
   let dt = luxon.DateTime.now().toLocaleString();
 
-  // populate current weather container with city, current date
+  // get current weather icon from data and create an img element to store it in
+  let currIcon = data.current.weather[0].icon;
+  let iconUrl = "https://openweathermap.org/img/w/" + currIcon + ".png";
+  let iconEl = document.createElement("img");
+  iconEl.classList = "weather-icon";
+  iconEl.setAttribute("src", iconUrl);
+
+  // populate current weather container with city, current date, and weather icon
   let cityTitleEl = document.querySelector(".city-title");
   cityTitleEl.textContent = city + " (" + dt + ") ";
+  cityTitleEl.appendChild(iconEl);
   
 }
 
