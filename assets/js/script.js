@@ -1,4 +1,5 @@
 let searchFormEl = document.querySelector("#search-form");
+let searchHistoryContEl = document.querySelector("#search-history");
 let searchHistoryListEl = document.querySelector("#search-history-list");
 let cityInputEl = document.querySelector("#city");
 let currWeatherContEl = document.querySelector(".current-weather");
@@ -38,6 +39,7 @@ let loadSearchHistory = function() {
 
 let formSubmitHandler = function(event) {
   event.preventDefault();
+  //event.stopPropagation();
 
   // get value from input element
   let city = cityInputEl.value.trim();
@@ -50,6 +52,12 @@ let formSubmitHandler = function(event) {
       searchedCities = [];
       searchedCities.push(city);
       saveSearchedCities();
+      let cityListEl = document.createElement("li");
+      cityListEl.id = searchedCities[(searchedCities.length - 1)];
+      cityListEl.classList = "searched-city btn";
+      cityListEl.textContent = searchedCities[(searchedCities.length - 1)];
+  
+      searchHistoryListEl.appendChild(cityListEl);
     }
     else {
       let index = searchedCities.findIndex(function(searchedCity) {
@@ -58,6 +66,12 @@ let formSubmitHandler = function(event) {
       if (index === -1) {
         searchedCities.push(city);
         saveSearchedCities();
+        let cityListEl = document.createElement("li");
+        cityListEl.id = searchedCities[(searchedCities.length - 1)];
+        cityListEl.classList = "searched-city btn";
+        cityListEl.textContent = searchedCities[(searchedCities.length - 1)];
+  
+        searchHistoryListEl.appendChild(cityListEl);
       }
     }
   }
@@ -70,11 +84,16 @@ let formSubmitHandler = function(event) {
 // when city button in search history is clicked, get the city name and send to getCoordinates
 let cityButtonHandler = function(event) {
   event.preventDefault();
+  //event.stopPropagation();
   let targetEl = event.target;
-  let city = targetEl.id.value;
+  let city = targetEl.id;
 
   if (city) {
-    getCoordinates(city);
+    for (let i = 0; i < searchedCities.length; i++) {
+      if (targetEl.matches("#" + searchedCities[i])) {
+        getCoordinates(city);
+      }
+    }
   }
 }
 
@@ -100,6 +119,9 @@ let getCoordinates = function(city) {
         alert("Error: City Data Not Found");
       }
     })
+    .catch(function(error) {
+      alert("Unable to connect to Open Weather");
+    });
 }
 
 let getWeather = function(lat, long, city) {
@@ -245,12 +267,9 @@ let displayWeather = function(data, city) {
 let saveSearchedCities = function() {
   // save cities searched to localStorage
   localStorage.setItem("cities", JSON.stringify(searchedCities));
-
-  // add city to search history display
-  loadSearchHistory();
 }
 
 searchFormEl = addEventListener("submit", formSubmitHandler);
-//searchHistoryListEl = addEventListener("click", cityButtonHandler);
+//searchHistoryContEl = addEventListener("click", cityButtonHandler);
 
 loadSearchHistory();

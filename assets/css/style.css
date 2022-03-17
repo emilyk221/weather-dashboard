@@ -144,3 +144,8 @@ h1 {
   margin: 5px;
   width: 97%;
 }
+
+.searched-city:hover {
+  cursor: pointer;
+  color: white;
+}
