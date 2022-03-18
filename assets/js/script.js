@@ -27,8 +27,10 @@ let loadSearchHistory = function() {
   // create a list of city buttons and append to search history list
   else {
     for (let i = 0; i < searchedCities.length; i++) {
+      let cityName = searchedCities[i];
+      let cityArray = cityName.split(" ");
       let cityListEl = document.createElement("li");
-      cityListEl.id = searchedCities[i];
+      cityListEl.id = cityArray[0] + cityArray[1];
       cityListEl.classList = "searched-city btn";
       cityListEl.textContent = searchedCities[i];
   
@@ -39,7 +41,6 @@ let loadSearchHistory = function() {
 
 let formSubmitHandler = function(event) {
   event.preventDefault();
-  //event.stopPropagation();
 
   // get value from input element
   let city = cityInputEl.value.trim();
@@ -52,8 +53,10 @@ let formSubmitHandler = function(event) {
       searchedCities = [];
       searchedCities.push(city);
       saveSearchedCities();
+      let cityName = searchedCities[(searchedCities.length - 1)];
+      let cityArray = cityName.split(" ");
       let cityListEl = document.createElement("li");
-      cityListEl.id = searchedCities[(searchedCities.length - 1)];
+      cityListEl.id = cityArray[0] + cityArray[1];
       cityListEl.classList = "searched-city btn";
       cityListEl.textContent = searchedCities[(searchedCities.length - 1)];
   
@@ -66,8 +69,10 @@ let formSubmitHandler = function(event) {
       if (index === -1) {
         searchedCities.push(city);
         saveSearchedCities();
+        let cityName = searchedCities[(searchedCities.length - 1)];
+        let cityArray = cityName.split(" ");
         let cityListEl = document.createElement("li");
-        cityListEl.id = searchedCities[(searchedCities.length - 1)];
+        cityListEl.id = cityArray[0] + cityArray[1];
         cityListEl.classList = "searched-city btn";
         cityListEl.textContent = searchedCities[(searchedCities.length - 1)];
   
@@ -84,13 +89,15 @@ let formSubmitHandler = function(event) {
 // when city button in search history is clicked, get the city name and send to getCoordinates
 let cityButtonHandler = function(event) {
   event.preventDefault();
-  //event.stopPropagation();
   let targetEl = event.target;
   let city = targetEl.id;
 
   if (city) {
     for (let i = 0; i < searchedCities.length; i++) {
-      if (targetEl.matches("#" + searchedCities[i])) {
+      let cityName = searchedCities[i];
+      let cityArray = cityName.split(" ");
+      if (targetEl.matches("#" + cityArray[0] + cityArray[1])) {
+        city = cityArray.join(" ");
         getCoordinates(city);
       }
     }
@@ -269,7 +276,7 @@ let saveSearchedCities = function() {
   localStorage.setItem("cities", JSON.stringify(searchedCities));
 }
 
-searchFormEl = addEventListener("submit", formSubmitHandler);
-//searchHistoryContEl = addEventListener("click", cityButtonHandler);
+searchFormEl.addEventListener("submit", formSubmitHandler);
+searchHistoryListEl.addEventListener("click", cityButtonHandler);
 
 loadSearchHistory();
