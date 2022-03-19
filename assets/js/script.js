@@ -106,7 +106,7 @@ let cityButtonHandler = function(event) {
 
 let getCoordinates = function(city) {
   // format open weather geocoding api url
-  let apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=a4a152b1648968c8a4d183d5f5b5283f";
+  let apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=a4a152b1648968c8a4d183d5f5b5283f";
 
   fetch(apiUrl)
     .then(function(response) {
